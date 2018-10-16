@@ -136,12 +136,14 @@ export class ContactsDatasource implements IDatasource {
         'params': httpParams
       })
       .subscribe(res => {
-        const data = res['data'];
+        const data = res['entries'];
 
         let lastRow = -1;
         if (data.length < count) {
           lastRow = data.length;
         }
+
+        this.gridFilter.numResults = res['total'];
 
         params.successCallback(data, lastRow);
       });

@@ -1,12 +1,29 @@
+<!--filter-->
+<div style=" margin: 10px 0">
+    <input placeholder="Search contact..."
+           style="display:inline-block"
+           appAutofocus
+           class="form-control"
+           (keyup)="onGridFilterChanged()"
+           [(ngModel)]="gridState.filter" />
 
-<ag-grid-angular #agGrid
-                         style='width: 100%; height: 500px;'
-                         [gridOptions]="gridOptions"
-                         id='myGrid'
-                         class='ag-theme-blue'
-                        
-                         [rowData]="rowData"
-                        
-                         (gridReady)='onGridReady($event)'
-                        
-                         (sortChanged)='onGridSortChanged()'></ag-grid-angular>
+    <button (click)="resetFilter()"
+            style="display:inline-block"
+            (disabled)="gridState.filter && gridState.filter.length"
+            class="btn btn-default">clear</button>
+
+    <span>{{gridState.total}}</span>
+
+</div>
+
+<div style="clear:both">
+    <ag-grid-angular #agGrid
+                     style='width: 100%; height: 500px;'
+                     [gridOptions]="gridOptions"
+                     id='myGrid'
+                     class='ag-theme-blue'
+                     [rowData]="rowData"
+                     (gridReady)='onGridReady($event)'
+                     (sortChanged)='onGridSortChanged()'></ag-grid-angular>
+
+</div>
