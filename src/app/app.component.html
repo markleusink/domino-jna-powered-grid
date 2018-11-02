@@ -1,3 +1,4 @@
+
 <!--filter-->
 <div style=" margin: 10px 0">
     <input placeholder="Search contact..."
@@ -7,23 +8,22 @@
            (keyup)="onGridFilterChanged()"
            [(ngModel)]="gridState.filter" />
 
-    <button (click)="resetFilter()"
-            style="display:inline-block"
-            (disabled)="gridState.filter && gridState.filter.length"
-            class="btn btn-default">clear</button>
+    <a (click)="resetFilter()"
+       style="display: inline-block; margin-left: 10px"
+       (disabled)="gridState.filter && gridState.filter.length">clear</a>
 
-    <span>{{gridState.total}}</span>
+    <span style="margin-left: 100px; color: #999">(number of results: {{gridState.total | number}})</span>
 
 </div>
 
-<div style="clear:both">
+<div>
+
     <ag-grid-angular #agGrid
                      style='width: 100%; height: 500px;'
                      [gridOptions]="gridOptions"
                      id='myGrid'
                      class='ag-theme-blue'
-                     [rowData]="rowData"
-                     (gridReady)='onGridReady($event)'
+                     (gridReady)='onGridReady()'
                      (sortChanged)='onGridSortChanged()'></ag-grid-angular>
 
 </div>

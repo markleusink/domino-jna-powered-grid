@@ -4,6 +4,7 @@ import { IDatasource, IGetRowsParams } from 'ag-grid-community';
 import { AgGridNg2 } from 'ag-grid-angular';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridNg2;
 
   private gridFilterSubject: Subject<string> = new Subject();
-  gridState = { filter: null, sortModel: null, rowIndex: 0, unid: null };
+  gridState = { filter: null, sortModel: null, rowIndex: 0, unid: null, total: 0 };
   gridOptions = {};
 
   constructor(private http: HttpClient) {
@@ -132,7 +133,7 @@ export class ContactsDatasource implements IDatasource {
     }
 
     this.http
-      .get('http://nora.lan/jna/jna-demo.nsf/api.xsp/contacts', {
+      .get( environment.endpoint + '/contacts', {
         'params': httpParams
       })
       .subscribe(res => {
@@ -140,10 +141,12 @@ export class ContactsDatasource implements IDatasource {
 
         let lastRow = -1;
         if (data.length < count) {
-          lastRow = data.length;
+          // api returned fewer results than asked for: must be the end of the data
+          // set the index of the last result
+         lastRow = params.startRow + data.length;
         }
 
-        this.gridFilter.numResults = res['total'];
+        this.gridFilter.total = res['total'];
 
         params.successCallback(data, lastRow);
       });
