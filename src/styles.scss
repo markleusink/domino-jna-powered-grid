@@ -1,23 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
 
-@import "~ag-grid-community/dist/styles/ag-grid.css";
-@import "~ag-grid-community/dist/styles/ag-theme-blue.css";
-
-body, input {
-    font-family: Helvetica, Arial;
-    font-size: 14px;
+body,
+input {
+  font-family: Helvetica, Arial;
+  font-size: 14px;
 }
 
 body {
-    margin: 30px;
+  margin: 30px;
 }
 
 input {
-    padding: 10px 5px;
+  padding: 10px 5px;
 }
 
 a {
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
 }
